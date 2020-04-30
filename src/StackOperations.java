@@ -20,6 +20,7 @@ class StackOperations {
         System.out.println("Matching");
         System.out.println(matchParameter("{[]}"));
         System.out.println(matchParameter("{[}"));
+        System.out.println(isValid("([)]"));
     }
     /*
     Evaluate the value of an arithmetic expression in Reverse Polish Notation.
@@ -27,7 +28,6 @@ class StackOperations {
     Input: ["2", "1", "+", "3", "*"]
     Output: 9
     Explanation: ((2 + 1) * 3) = 9
-
     Input: ["4", "13", "5", "/", "+"]
     Output: 6
     Explanation: (4 + (13 / 5)) = 6
@@ -82,7 +82,7 @@ Input: "{[]}"
 Output: true
 
      */
-    public boolean isValid(String s) {
+    public static boolean isValid(String s) {
         if(s == null) return true;
         Stack<Character> stack = new Stack<>();
         for(int i=0; i< s.length(); i++){
