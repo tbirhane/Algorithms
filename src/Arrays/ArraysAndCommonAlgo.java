@@ -1,3 +1,7 @@
+package Arrays;
+
+import java.security.Timestamp;
+import java.time.Instant;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -9,8 +13,7 @@ public class ArraysAndCommonAlgo {
 
 	// write your code here
         //Functional inteface
-        BiFunction<Integer,Integer,Integer> f = (z,y) -> z+y;
-        System.out.println(f.apply(4,4));
+
         Integer x = 8+5;
         x.toString();
         //Power
@@ -50,25 +53,52 @@ public class ArraysAndCommonAlgo {
         System.out.println(addSubArray(new int[]{1,2,3,4,5,6}));
         //
         System.out.println(" Rearranged: "+Arrays.toString(rearangePositiveAndNegative(new int[]{5,67,-2,5,7,-9,-45,20,3,78,-23})));
+        System.out.println("Hamming distance: " + hammingDistance(1, 4));
+        //
+        System.out.println("Time1: "+ Instant.now());
+        for(int k=3; k<=50; k++)
+            System.out.println("can win Nim: " + canWinNim( k));
+        System.out.println("Time2: "+Instant.now());
+        for(int k=3; k<=50; k++)
+            System.out.println("can win Nim: " + canWinNimDP( k));
+        System.out.println("Time2: "+Instant.now());
+        for(int k=3; k<=50; k++)
+            System.out.println("can win Nim: " + canWinNimNaive( k));
+        System.out.println("Time2: "+Instant.now());
     }
 
 /*
-You are playing the following Nim Game with your friend: There is a heap of stones on the table, each time one of you take turns to remove 1 to 3 stones. The one who removes the last stone will be the winner. You will take the first turn to remove the stones.
-
-Both of you are very clever and have optimal strategies for the game. Write a function to determine whether you can win the game given the number of stones in the heap.
-
+You are playing the following Nim Game with your friend:
+There is a heap of stones on the table, each time one of you take turns to remove 1 to 3 stones.
+The one who removes the last stone will be the winner.
+You will take the first turn to remove the stones.
+Both of you are very clever and have optimal strategies for the game.
+Write a function to determine whether you can win the game given the number of stones in the heap.
 Example:
-
 Input: 4
 Output: false
 Explanation: If there are 4 stones in the heap, then you will never win the game;
              No matter 1, 2, or 3 stones you remove, the last stone will always be
              removed by your friend.
  */
-public boolean canWinNim(int n) {
+//Using Dynamic programming
+public static boolean canWinNim(int n) {
+    return (n%4 != 0);
+}
+public static boolean canWinNimDP(int n) {
+    boolean table[] = new boolean[n+1];
+    for(int i=0; i<=3; i++)
+        table[i] = true;
+    for(int i=4; i<=n; i++){
+        table[i] = !table[i-1] || !table[i-2] || !table[i-3];
+    }
+    return table[n];
+}
+
+public static boolean canWinNimNaive(int n) {
     if(n <= 3 ) return true;
     if(n == 4) return false;
-    return (!canWinNim(n-1) || !canWinNim(n-2) || !canWinNim(n-3));
+    return !canWinNimNaive(n-1) || !canWinNimNaive(n-2) || !canWinNimNaive(n-3);
 }
 /*
 The Hamming distance between two integers is the number of positions at which the corresponding bits are different.
@@ -90,34 +120,46 @@ Explanation:
 The above arrows point to positions where the corresponding bits are different.
 
  */
-public int hammingDistance(int x, int y) {
+public static int hammingDistance(int x, int y) {
 
     List<String> bx = new ArrayList<>();
     List<String> by = new ArrayList<>();
     int count =0;
     while(x > 0){
-
         bx.add(String.valueOf(x%2));
         x = x/2;
     }
     while(y > 0){
-
         by.add(String.valueOf(y%2));
         y = y/2;
     }
-    Collections.reverse(bx);
-    Collections.reverse(by);
-
+   // Collections.reverse(bx);
+   // Collections.reverse(by);
+    System.out.println();
     Iterator<String> xit = bx.iterator();
     Iterator<String> yit = by.iterator();
     while(xit.hasNext()&&yit.hasNext()){
-        if(xit.next() != yit.next())
+        if(!xit.next().equals(yit.next()))
             count++;
+    }
+    if(xit.hasNext()){
+        while(xit.hasNext()){
+            String s = xit.next();
+            if("1".equals(s)) {
+                count++;
+            }
+        }
+    }
+    if(yit.hasNext()){
+        while(yit.hasNext()){
+        String s =  yit.next();
+        if("1".equals(s)){
+            count++;
+        }
+        }
     }
     return count;
 }
-
-
     static int mathPow(int x, int n){
         if(n == 1)
             return x;
@@ -156,7 +198,7 @@ public int hammingDistance(int x, int y) {
     static Student maxObj(List<Student> students){
 //        return Collections.max(students, Comparator.comparing(s -> s.getAge()));
 //      2 way
-        List<Student> students1 = students.stream().sorted((s1,s2) -> s2.getAge() -s1.getAge()).limit(1).collect(Collectors.toList());
+        List<Student> students1 = students.stream().sorted((s1, s2) -> s2.getAge() -s1.getAge()).limit(1).collect(Collectors.toList());
         return students1.get(0);
     }
     static int secondLargest(int[] a){
