@@ -1,3 +1,5 @@
+package stringMunipulation;
+
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -155,6 +157,7 @@ public class StringMunipulation {
     }
     //Find the logest palindrome substring iterative solution
     String logestPlaindrome(String str){
+        if(str == null || str.length() < 1) return str;
         int start = 0, end = 0;
         for(int i=0; i<str.length(); i++) {
             int len = Math.max(expand(str, i, i), expand(str, i, i + 1));
@@ -173,34 +176,36 @@ public class StringMunipulation {
         return j-i-1;
     }
     //Longest Plaindrome dynamic programming
-    String longestPlaindromeDynamicProg(String str){
-        int n = str.length();
-        boolean[][] table = new boolean[n][n];
-        int start = 0, end =0;
-        int maxLen = 1;
-        for(int i = 0; i<n; i++){
+    public String longestPlaindromeDynamicProg(String s) {
+        if(s == null || s.length()<1) return s;
+        boolean table[][] = new boolean[s.length()][s.length()];
+        for(int i=0; i<s.length(); i++){
             table[i][i] = true;
         }
-        for( int i = 0; i<n-1; i++){
-            if(str.charAt(i) == str.charAt(i+1)){
+        int start=0, maxLen=1;
+        for(int i=0; i<s.length()-1; i++){
+            if(s.charAt(i) == s.charAt(i+1)){
                 table[i][i+1] = true;
-                start = i;
-                end = i+1;
-                maxLen = 2;
+                start=i;
+                maxLen=2;
             }
         }
-        for(int k = 3; k<str.length();k++ ){
-            for (int i = 0; i < str.length() - k +1; i++) {
-                int j = i+k-1;
-                if(table[i+1][j-1] && str.charAt(i) == str.charAt(j)){
+        //
+        for(int k=3; k<=s.length(); k++){
+
+            for(int i=0; i<s.length()-k+1; i++){
+                int j=i+k-1;
+                if(table[i+1][j-1] && s.charAt(i) == s.charAt(j)){
                     table[i][j] = true;
-                    maxLen = k;
-                    start = i;
-                    end = j;
+                    if(k>maxLen){
+                        start = i;
+                        maxLen= k;
+                    }
                 }
             }
         }
-        return str.substring(start, end+1);
+
+        return s.substring(start, start+maxLen);
     }
 // search for string pattern in string
     static List<Integer> getIndexPatternInString(String str, String pat){
