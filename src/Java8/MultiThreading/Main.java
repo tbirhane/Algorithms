@@ -4,12 +4,14 @@ import java.util.concurrent.*;
 
 public class Main {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
+        //Thread with Runnable interface
         Runnable task2 = () -> {
-            System.out.println("Task2 with Rannable");
+            System.out.println("Task 2 with Rannable");
             System.out.println(Thread.currentThread().getName());
         };
+        //Task with Callable
         Callable<Integer> task3 = () -> {
-            System.out.println(Thread.currentThread().getName());
+            System.out.println("Task 3 with Callable: "+Thread.currentThread().getName());
             return 120;
         };
 

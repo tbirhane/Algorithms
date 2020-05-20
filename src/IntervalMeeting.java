@@ -42,22 +42,16 @@ static int minimumNumberOfRooms(List<Interval> list){
     Iterator<Interval> iterator = list.iterator();
     Interval a = iterator.hasNext()?iterator.next():null;
     int rooms = 0;
-    if(a != null) {
-        priorityQueue.add(a);
-        rooms++;
-    }
 
-    while (iterator.hasNext()){
-        Interval min = priorityQueue.peek();
-        Interval e = iterator.next();
-            if(e.start >= min.end){
-                min = priorityQueue.poll();
-            }else {
-                rooms++;
-            }
-        priorityQueue.add(e);
+    for(Interval i:list){
+        priorityQueue.add(i);
+        if(i.start < priorityQueue.peek().end){
+            rooms++;
+        } else{
+            priorityQueue.poll();
+        }
     }
-    return rooms;
+        return rooms;
 }
 //Using Collections.sort
     // TIme Complexity: O(nlogn + n) = O(nlogn)
