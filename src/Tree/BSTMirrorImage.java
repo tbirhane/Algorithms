@@ -1,5 +1,5 @@
-
-    /**
+package Tree;
+/**
      *
      *      1         1
      *    /  \       / \
@@ -65,9 +65,7 @@
                     queue2.add(n2.left);
 
             }
-            if(queue1.isEmpty() && queue2.isEmpty())
-                return true;
-            return false;
+            return queue1.isEmpty() && queue2.isEmpty();
         }
         static class Node{
             int data;

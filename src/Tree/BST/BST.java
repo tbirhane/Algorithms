@@ -1,3 +1,5 @@
+package Tree.BST;
+
 import java.util.*;
 
 public class BST {
@@ -10,17 +12,17 @@ public class BST {
             bst.insert(a);
         bst.print();
         System.out.println("sorted : "+array);
-        String a = new String("Java");
-        String b =new String("java");
+        String a = "Java";
+        String b = "java";
         System.out.println(a == b);
         System.out.println(" Level Order Sum: "+ bst.levelSumBST());
-        System.out.println("Is valid BST : " + bst.isValid());
+        System.out.println("Is valid Tree.BST.BST : " + bst.isValid());
         //Is Isomorphic
         System.out.println("Is Isomorphic: "+bst.isomorphic());
         //Print root to leaf path
 
     }
-    public List<Integer> levelSumBST(){
+    public List<Integer> levelSumBST() {
         if(root == null) return null;
         Node head = root;
         List<Integer> sums = new LinkedList<>();
@@ -84,6 +86,8 @@ public class BST {
         System.out.println(list);
         System.out.println("Print Spiral");
         printSpiral(root);
+        System.out.println("print level N:");
+        printLevelN(root, 3);
     }
     public void inorder(Node root){
         if(root == null)
@@ -149,7 +153,7 @@ public class BST {
         return true;
     }
 //Check if binary tree has path from root to leaf with given sum
-     boolean hasPathSum(Node node, int sum){
+     boolean hasPathSum(Node node, int sum) {
         if(node == null)
             return sum==0;
         else{
@@ -185,9 +189,10 @@ public class BST {
     Print all k-sum paths in a binary tree
 
     A binary tree and a number k are given. Print every path in the tree with sum of the nodes in the path as k.
-    A path can start from any node and end at any node and must be downward only, i.e. they need not be root node and leaf node; and negative numbers can also be there in the tree.
+    A path can start from any node and end at any node and must be downward only,
+    i.e. they need not be root node and leaf node; and negative numbers can also be there in the tree.
      */
-    void printAllKsumPaths(List<Integer> paths, Node root, int sum){
+    void printAllKsumPaths(List<Integer> paths, Node root, int sum) {
         if(root == null) return;
         paths.add(root.data);
         printAllKsumPaths(paths, root.left, sum);
@@ -282,7 +287,7 @@ public class BST {
    / \
   2   4
      */
-    static void printSpiral(Node node){
+    static void printSpiral(Node node) {
         int i = 1;
         int j = height(node);
         boolean flag = false;
@@ -304,7 +309,7 @@ public class BST {
         int right = height(node.right);
         return Math.max(left+1, right+1);
     }
-    static void leftToRight(Node node, int n){
+    static void leftToRight(Node node, int n) {
         if(node == null) return;
         if(n==1) System.out.println(node.data);
         else{
@@ -312,7 +317,7 @@ public class BST {
             leftToRight(node.right, n-1);
         }
     }
-    static void rightToLeft(Node node, int n){
+    static void rightToLeft(Node node, int n) {
         if(node == null) return;
         if(n==1) System.out.println(node.data);
         else{
@@ -320,6 +325,53 @@ public class BST {
             rightToLeft(node.left, n-1);
         }
     }
+    //Print elements which are at a certain distance from the root node.
+
+    static void printLevelN(Node node, int n) {
+        if(node==null) return;
+        if(n==1) System.out.println(node.data);
+        else{
+            printLevelN(node.left, n-1);
+            printLevelN(node.right, n-1);
+        }
+    }
+
+    /**
+     * Print binary tree in ZigZag
+     */
+
+        public List<List<Integer>> zigZagLevelOrder(Node root) {
+            if(root==null) return new ArrayList<>();
+            Deque<Node> dq = new LinkedList<>();
+            dq.add(root);
+            List<List<Integer>> list = new ArrayList<>();
+            boolean flag=false;
+            while(!dq.isEmpty()) {
+                int count = dq.size();
+                List<Integer> values = new ArrayList<>();
+                if(!flag){
+                    while(count > 0){
+                        Node n = dq.pop();
+                        values.add(n.data);
+                        if(n.left!=null) dq.addLast(n.left);
+                        if(n.right!=null) dq.addLast(n.right);
+                        count--;
+                    }
+                    flag = !flag;
+                } else {
+                    while(count > 0) {
+                        Node n = dq.removeLast();
+                        values.add(n.data);
+                        if(n.right!=null) dq.push(n.right);
+                        if(n.left!=null) dq.push(n.left);
+                        count--;
+                    }
+                    flag = !flag;
+                }
+                list.add(values);
+            }
+            return list;
+        }
 
     class Node {
         int data;

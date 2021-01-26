@@ -33,10 +33,7 @@ public class ArraysAndCommonAlgo {
         System.out.println(removeDupChar("aaabbccc"));
         System.out.println(removeDupCharJava8("aaabbccc"));
         System.out.println();
-        int[] a = sort0and1(new int[]{ 1,1,1,0,1,0,0});
-        for (int i:a)
-            System.out.println(i);
-        //System.out.println(sort0and1(new int[]{ 1,1,1,0,1,0,0}));
+        System.out.println(Arrays.toString(sort0and1(new int[]{ 1,1,1,0,1,0,0})));
         // print duplicate characters
         printDupChar("How are You hOrD mAn");
         //segregate even odd
@@ -45,7 +42,7 @@ public class ArraysAndCommonAlgo {
         l.add(13);
         l.add(10);
         l.add(15);
-        System.out.println(segregateLinkedList(l));
+        System.out.println("Segregate even and odd: "+segregateLinkedList(l));
         ArrayList<String> names = new ArrayList<>();
         names.add("Saron"); names.add("Saron"); names.add("Ama");names.add("Eron");
         System.out.println(sortRemoveDups(names));
@@ -55,16 +52,18 @@ public class ArraysAndCommonAlgo {
         System.out.println(" Rearranged: "+Arrays.toString(rearangePositiveAndNegative(new int[]{5,67,-2,5,7,-9,-45,20,3,78,-23})));
         System.out.println("Hamming distance: " + hammingDistance(1, 4));
         //
-        System.out.println("Time1: "+ Instant.now());
-        for(int k=3; k<=50; k++)
-            System.out.println("can win Nim: " + canWinNim( k));
-        System.out.println("Time2: "+Instant.now());
-        for(int k=3; k<=50; k++)
-            System.out.println("can win Nim: " + canWinNimDP( k));
-        System.out.println("Time2: "+Instant.now());
-        for(int k=3; k<=50; k++)
-            System.out.println("can win Nim: " + canWinNimNaive( k));
-        System.out.println("Time2: "+Instant.now());
+//        System.out.println("Time1: "+ Instant.now());
+//        for(int k=3; k<=50; k++)
+//            System.out.println("can win Nim: " + canWinNim( k));
+//        System.out.println("Time2: "+Instant.now());
+//        for(int k=3; k<=50; k++)
+//            System.out.println("can win Nim: " + canWinNimDP( k));
+//        System.out.println("Time2: "+Instant.now());
+//        for(int k=3; k<=50; k++)
+//            System.out.println("can win Nim: " + canWinNimNaive( k));
+//        System.out.println("Time2: "+Instant.now());
+        int[] nums1 = {4,1,2}; int[]nums2 = {1,3,4,2};
+        System.out.println("next greater number: "+Arrays.toString(nextGreaterElement(nums1, nums2)));
     }
 
 /*
@@ -86,7 +85,7 @@ public static boolean canWinNim(int n) {
     return (n%4 != 0);
 }
 public static boolean canWinNimDP(int n) {
-    boolean table[] = new boolean[n+1];
+    boolean[] table = new boolean[n+1];
     for(int i=0; i<=3; i++)
         table[i] = true;
     for(int i=4; i<=n; i++){
@@ -161,10 +160,16 @@ public static int hammingDistance(int x, int y) {
     return count;
 }
     static int mathPow(int x, int n){
+    if(n == 0) return 1;
         if(n == 1)
             return x;
         else {
-            return x*mathPow(x, n-1);
+            int tmp = mathPow(x, n/2);
+            if(n>0){
+                if(n%2 ==0) return tmp*tmp;
+                else return x*tmp*tmp;
+            } else
+                 return (tmp*tmp)/x;
         }
     }
 
@@ -183,17 +188,11 @@ public static int hammingDistance(int x, int y) {
 
     //remove duplicates
     static Object[] removeDups(Integer[] arr){
-//        LinkedHashSet<Integer> a = new LinkedHashSet<>(Arrays.asList(arr));
-//        return a.toArray();
-        return Arrays.stream(arr).distinct().collect(Collectors.toList()).toArray();
+        LinkedHashSet<Integer> a = new LinkedHashSet<>(Arrays.asList(arr));
+        return a.toArray();
+       // return Arrays.stream(arr).distinct().collect(Collectors.toList()).toArray();
         //other way
 
-    }
-    static Object[] removeDupsJava8(Integer[] arr){
-
-        List<Integer> ints = new ArrayList<>();
-        Arrays.stream(arr).distinct().forEach(i ->ints.add(i));
-        return ints.toArray();
     }
     static Student maxObj(List<Student> students){
 //        return Collections.max(students, Comparator.comparing(s -> s.getAge()));
@@ -239,10 +238,10 @@ public static int hammingDistance(int x, int y) {
         LinkedHashSet<Character> s = new LinkedHashSet<>();
         StringBuilder builder = new StringBuilder();
         for(char c:charArray){
-            s.add(c);
-        }
-        for(char c:s){
-            builder.append(c);
+            if(!s.contains(c)) {
+                s.add(c);
+                builder.append(c);
+            }
         }
     return builder.toString();
     }
@@ -268,17 +267,14 @@ public static int hammingDistance(int x, int y) {
         HashMap<Character,Character> m =  new HashMap<>();
         String s = str.toUpperCase();
         char[] chars = s.toCharArray();
-        HashMap<Character,Character> dups = new HashMap<>();
         for (char c:chars){
             if(m.containsKey(c)){
-               dups.put(c,c);
+                System.out.println(c);
             }
             else m.put(c,c);
         }
-        for(char c:dups.keySet()){
-            System.out.println(c);
-        }
     }
+    //segregate even and odd numbers of a LinkedList
     static List<Integer> segregateLinkedList(List<Integer> list){
         List<Integer> even = new LinkedList<>();
         List<Integer> odd = new LinkedList<>();
@@ -288,9 +284,7 @@ public static int hammingDistance(int x, int y) {
             }else  odd.add(a);
         }
         //System.out.println(even);
-        for (int a:odd){
-            even.add(a);
-        }
+        even.addAll(odd);
         return even;
 
         }
@@ -300,7 +294,7 @@ public static int hammingDistance(int x, int y) {
         for (String s:st){
             sorted.add(s);
         }
-         Collections.sort(sorted);
+         Collections.sort(sorted, Comparator.reverseOrder());
             return sorted;
         }
      static Map<String,Long> counter(String str){
@@ -331,8 +325,7 @@ private static List<Integer> sum(int[] arr){
     return ints;
 }
 
-static int[] rearangePositiveAndNegative(int[] arr){
-
+static int[] rearangePositiveAndNegative(int[] arr) {
         //partition them
     int i=-1;
     for(int j=0; j<arr.length;j++){
@@ -357,32 +350,27 @@ static int[] rearangePositiveAndNegative(int[] arr){
 /*
  You are given two arrays (without duplicates) nums1 and nums2 where nums1’s elements are subset of nums2.
  Find all the next greater numbers for nums1's elements in the corresponding places of nums2.
-The Next Greater Number of a number x in nums1 is the first greater number to its right in nums2. If it does not exist, output -1 for this number.
+The Next Greater Number of a number x in nums1 is the first greater number to its right in nums2. If it does not exist,
+output -1 for this number.
 Input: nums1 = [4,1,2], nums2 = [1,3,4,2].
 Output: [-1,3,-1]
 Input: nums1 = [2,4], nums2 = [1,2,3,4].
 Output: [3,-1]
  */
-    public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+    public static int[] nextGreaterElement(int[] nums1, int[] nums2) {
         int[] nextGreater = new int[nums1.length];
         Map<Integer, Integer> map = new HashMap<>();
-        int k = 0;
-        for(int a:nums2){
-            map.put(a, k++);
+        for(int i=0; i<nums2.length-1; i++){
+            if(nums2[i] < nums2[i+1])
+                map.put(nums2[i], nums2[i+1]);
+            else map.put(nums2[i], -1);
         }
+        map.put(nums2[nums2.length-1], -1);
         for(int i=0; i<nums1.length; i++){
-            boolean flag = false;
-            for(int j = map.get(nums1[i]) + 1; j<nums2.length; j++){
-                if(nums1[i] < nums2[j]){
-                    nextGreater[i] = nums2[j];
-                    flag = true;
-                    break;
-                }
-            }
-            if(!flag){
-                nextGreater[i] = -1;
-            }
+            nextGreater[i] = map.get(nums1[i]);
         }
         return nextGreater;
     }
 }
+
+

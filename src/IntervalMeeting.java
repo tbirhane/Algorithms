@@ -34,16 +34,15 @@ public static void main(String[] args) {
 
     // n for traversing through the list of intervals
 // and logn for adding  and polling each interval to the priorityQueue which results nlogn
-static int minimumNumberOfRooms(List<Interval> list){
+static int minimumNumberOfRooms(List<Interval> list) {
     Comparator<Interval> startComparator = Comparator.comparing(Interval::getStart);
     Comparator<Interval> endComparator = Comparator.comparing(Interval::getEnd);
     Collections.sort(list,startComparator);
     PriorityQueue<Interval> priorityQueue = new PriorityQueue<>(endComparator);
     Iterator<Interval> iterator = list.iterator();
-    Interval a = iterator.hasNext()?iterator.next():null;
     int rooms = 0;
 
-    for(Interval i:list){
+    for(Interval i:list) {
         priorityQueue.add(i);
         if(i.start < priorityQueue.peek().end){
             rooms++;
@@ -53,7 +52,7 @@ static int minimumNumberOfRooms(List<Interval> list){
     }
         return rooms;
 }
-//Using Collections.sort
+    //Using Collections.sort
     // TIme Complexity: O(nlogn + n) = O(nlogn)
 static boolean canAttendMetting(List<Interval> list){
    // Collections.sort(list, new IntervalComparator());

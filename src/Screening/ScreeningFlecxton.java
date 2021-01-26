@@ -1,3 +1,5 @@
+package Screening;
+
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -122,4 +124,5 @@ public class ScreeningFlecxton {
     static Map<Integer, Long> getFrequencyOfArray(int[] a){
         return Arrays.stream(a).boxed().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
     }
+
 }

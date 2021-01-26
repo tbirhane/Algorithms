@@ -3,10 +3,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class LRUcache2 {
-    private  Node head;
-    private Node tail;
-    private HashMap<Integer, Node>  cache;
-    private int capacity;
+    private final Node head;
+    private final Node tail;
+    private final HashMap<Integer, Node>  cache;
+    private final int capacity;
     private  int size;
     LRUcache2(int n){
         size = 0;

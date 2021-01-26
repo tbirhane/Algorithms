@@ -6,12 +6,12 @@ import java.util.List;
 
 public class Test {
     public static void main(String[] args) {
-        int arr[] = {34,7,8,9,3};
+        int[] arr = {34,7,8,9,3};
         Arrays.stream(arr).filter(a -> a>5).forEach(a -> System.out.println(a));
         int sum = Arrays.stream(arr).sum();
         System.out.println(sum);
         System.out.println(Arrays.stream(arr).reduce(0, (x,y) -> x+y));
-        int a[] = bestDaySellBuy(new int[]{7,1,5,3,6,4});
+        int[] a = bestDaySellBuy(new int[]{7,1,5,3,6,4});
         for(int aa : a)
          System.out.println(aa);
         maxProfit(new int[]{7,1,5,3,6,4});

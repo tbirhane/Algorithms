@@ -57,7 +57,6 @@ public class Heap {
         buildMaxHeap(heap);
         return heap;
     }
-
     //Finding the continous median
     void findContinousMedian(int[] arr){
         minHeap = new PriorityQueue<>();
@@ -81,4 +80,38 @@ public class Heap {
             return (minHeap.peek() + maxHeap.peek())/2.0;
         }
     }
+/**
+ * We have a list of points on the plane.  Find the K closest points to the origin (0, 0).
+ * (Here, the distance between two points on a plane is the Euclidean distance.)
+ * You may return the answer in any order.  The answer is guaranteed to be unique (except for the order that it is in.)*/
+       static public int[][] kClosest(int[][] points, int K) {
+            if(points==null) return null;
+            Comparator<Point> comp = Comparator.comparingDouble(p -> p.distance());
+            Comparator<Point> reversed = comp.reversed();
+            PriorityQueue<Point> pq = new PriorityQueue<Point>(reversed);
+            for(int[] p:points){
+                pq.add(new Point(p[0], p[1]));
+                if(pq.size() > K)
+                    pq.poll();
+            }
+            int[][] ans = new int[pq.size()][2];
+            int i=0;
+            while(!pq.isEmpty()){
+                Point p = pq.poll();
+                ans[i][0] = p.x;
+                ans[i][1] = p.y;
+                i++;
+            }
+            return ans;
+        }
+        static class Point{
+            int x, y;
+            Point(int x, int y){
+                this.x = x;
+                this.y = y;
+            }
+            double distance(){
+                return Math.sqrt(Math.pow((double)x, 2.0) + Math.pow((double)y, 2.0));
+            }
+        }
 }

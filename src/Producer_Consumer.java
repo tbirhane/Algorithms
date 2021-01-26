@@ -82,15 +82,15 @@ Queu queu;
     // Merges two subarrays of arr[].
     // First subarray is arr[l..m]
     // Second subarray is arr[m+1..r]
-    void merge(int arr[], int l, int m, int r)
+    void merge(int[] arr, int l, int m, int r)
     {
         // Find sizes of two subarrays to be merged
         int n1 = m - l + 1;
         int n2 = r - m;
 
         /* Create temp arrays */
-        int L[] = new int [n1];
-        int R[] = new int [n2];
+        int[] L = new int [n1];
+        int[] R = new int [n2];
 
         /*Copy data to temp arrays*/
         for (int i=0; i<n1; ++i)
@@ -140,7 +140,7 @@ Queu queu;
 
     // Main function that sorts arr[l..r] using
     // merge()
-    void sort(int arr[], int l, int r)
+    void sort(int[] arr, int l, int r)
     {
         if (l < r)
         {

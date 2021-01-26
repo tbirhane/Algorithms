@@ -1,10 +1,10 @@
 import java.util.*;
 
 public class LRUcache {
-    private Deque<Integer> dq;
-    private HashMap<Integer,Integer> map;
+    private final Deque<Integer> dq;
+    private final HashMap<Integer,Integer> map;
     private List<Integer> doubleList;
-    private int cacheSize;
+    private final int cacheSize;
     LRUcache(int n){
         dq = new LinkedList<>();
 

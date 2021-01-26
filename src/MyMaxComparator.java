@@ -5,7 +5,7 @@ import java.util.List;
 
 public class MyMaxComparator {
 
-    public static void main(String a[]){
+    public static void main(String[] a){
 
         List<Empy> emps = new ArrayList<Empy>();
         emps.add(new Empy(10, "Raghu", 25000));

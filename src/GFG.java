@@ -2,7 +2,7 @@ class GFG
 {//23280720690306
     // An Inplace function to rotate a N x N matrix 
     // by 90 degrees in anti-clockwise direction 
-    static void rotateMatrix(int N, int mat[][])
+    static void rotateMatrix(int N, int[][] mat)
     {
         // Consider all squares one by one 
         for (int x = 0; x < N / 2; x++)
@@ -30,7 +30,7 @@ class GFG
     }
 
     // Function to print the matrix 
-    static void displayMatrix(int N, int mat[][])
+    static void displayMatrix(int N, int[][] mat)
     {
         for (int i = 0; i < N; i++)
         {
@@ -52,7 +52,7 @@ class GFG
         int N = 4;
 
         // Test Case 1 
-        int mat[][] =
+        int[][] mat =
                 {
                         {1, 2, 3, 4},
                         {5, 6, 7, 8},

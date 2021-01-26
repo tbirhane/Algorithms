@@ -7,7 +7,6 @@ public class FloorCelingOfNumberInSortedArray {
     public static void main(String[] args) {
         int[] result = floorAndCelling(new int[]{1,4,6,8,9}, 5);
         System.out.println(" Floor: "+result[0] + " Celling: "+ result[1]);
-
     }
     static int[] floorAndCelling(int[] arr, int n){
         int[] index = new int[2];

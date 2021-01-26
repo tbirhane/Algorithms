@@ -6,7 +6,7 @@ class ThreeSum {
     // returns true if there is triplet
     // with sum equal to 'sum' present
     // in A[]. Also, prints the triplet
-    static boolean find3Numbers(int A[], int arr_size, int sum)
+    static boolean find3Numbers(int[] A, int arr_size, int sum)
     {
         // Fix the first element as A[i]
         for (int i = 0; i < arr_size - 2; i++) {
@@ -50,7 +50,7 @@ class ThreeSum {
 
     public static void main(String[] args)
     {
-        int A[] = { 1, 4, 45, 6, 10, 8 };
+        int[] A = { 1, 4, 45, 6, 10, 8 };
         int sum = 22;
         int arr_size = A.length;
 

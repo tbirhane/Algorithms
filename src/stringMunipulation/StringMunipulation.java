@@ -77,6 +77,7 @@ public class StringMunipulation {
         System.out.println(getReverseMaintainSpace("I work in eBay"));
         int[][] arr = new int[2][3];
         System.out.println(arr.length);
+
     }
     void wordFrequency(String str){
         Map<String, Long> freq = Stream.of(str.split(" "))
@@ -93,11 +94,14 @@ public class StringMunipulation {
         System.out.println(checkAlphabet(all));
 
     }
+    /**
+     * Find pairs of words where the sum of their character size is equal to k */
     List<List<String>> findPairs(String str, long k){
         Map<String, Long> strCount = Arrays.stream(str.split(" ")).map(w -> w.toLowerCase())
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
         List<List<String>> listPairs = new ArrayList<List<String>>();
         System.out.println("map: " + strCount);
+
         for(String k1 : strCount.keySet()){
 //            List<String> pairs = new ArrayList<>();
             Set<String> keys = strCount.keySet();
@@ -168,6 +172,7 @@ public class StringMunipulation {
         }
         return str.substring(start, end+1);
     }
+
     int expand(String str, int i, int j){
         while(i >=0 && j < str.length() && str.charAt(i) == str.charAt(j)){
             i--;
@@ -178,10 +183,11 @@ public class StringMunipulation {
     //Longest Plaindrome dynamic programming
     public String longestPlaindromeDynamicProg(String s) {
         if(s == null || s.length()<1) return s;
-        boolean table[][] = new boolean[s.length()][s.length()];
+        boolean[][] table = new boolean[s.length()][s.length()];
         for(int i=0; i<s.length(); i++){
             table[i][i] = true;
         }
+        
         int start=0, maxLen=1;
         for(int i=0; i<s.length()-1; i++){
             if(s.charAt(i) == s.charAt(i+1)){
@@ -204,7 +210,6 @@ public class StringMunipulation {
                 }
             }
         }
-
         return s.substring(start, start+maxLen);
     }
 // search for string pattern in string
@@ -223,7 +228,7 @@ public class StringMunipulation {
     }
 
     static boolean checkAlphabet(String s){
-        boolean check[] = new boolean[26];
+        boolean[] check = new boolean[26];
         for (int i = 0; i<check.length;i++)
             check[i] = false;
         for(int i = 0; i < s.length(); i++){

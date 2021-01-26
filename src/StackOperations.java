@@ -3,7 +3,7 @@ import java.util.Stack;
 
 class StackOperations {
 
-    public static void main(String args[] ) throws Exception {
+    public static void main(String[] args) throws Exception {
         MinStack m = new MinStack();
         m.push(3);
         m.push(1);
@@ -99,8 +99,7 @@ Output: true
 
             }
         }
-        if(!stack.isEmpty()) return false;
-        return true;
+        return stack.isEmpty();
 
     }
     /*
@@ -122,20 +121,19 @@ Output: true
                 enhanced.push(n);
             } else {
                 int value = enhanced.peek();
-
                 if (value < n)
                     enhanced.push(value);
                 else
                     enhanced.push(n);
             }
-
         }
 
-        public int pop() {
-            int ret = stack.pop();
-            enhanced.pop();
-            return ret;
-
+        public int pop() throws Exception {
+            if(!stack.isEmpty()) {
+                int ret = stack.pop();
+                enhanced.pop();
+                return ret;
+            } else throw new Exception("Empty Stack");
         }
        public int size() {
            return stack.size();
@@ -150,38 +148,25 @@ Output: true
     static boolean matchParameter(String str){
         Stack<Character> stack = new Stack<>();
         HashMap<Character, Character> match = new HashMap<>();
-        HashMap<Character, Character> opening = new HashMap<>();
-        HashMap<Character, Character> closing = new HashMap<>();
-        match.put('{','}');
-        match.put('(',')');
-        match.put('[',']');
-
-        opening.put('{',' ');
-        opening.put('(',' ');
-        opening.put('[',' ');
-
-
-        closing.put('}', ' ');
-        closing.put(']', ' ');
-        closing.put(')', ' ');
-
+        match.put('}','{');
+        match.put(')','(');
+        match.put(']','[');
         for (int i =0; i <str.length(); i++){
             char c = str.charAt(i);
-            if(opening.containsKey(c))
+            if(!match.containsKey(c)) {
                 stack.push(c);
-            else if(closing.containsKey(c)){
+            }
+            else {
                 if(!stack.empty()) {
-                    char ch = (Character) stack.pop();
-                    char m = match.get(ch);
-                    if(c != m)
+                    char ch = stack.pop();
+                    char open = match.get(c);
+                    if(ch != open)
                         return false;
                 }
                 else return  false;
             }
 
         }
-        if(!stack.isEmpty())
-            return false;
-        return true;
+        return stack.isEmpty();
     }
 }
